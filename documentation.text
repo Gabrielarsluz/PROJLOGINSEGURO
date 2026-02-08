@@ -1,0 +1,125 @@
+# 📄 Documentação do Projeto: Login Seguro com Node.js + SQLite
+
+## 1. Pré-requisitos
+- **Node.js** (versão 18 ou superior)  
+- **npm** (instalado junto com Node.js)  
+- **SQLite** (não precisa instalar cliente, usamos via `sqlite3` do Node)  
+
+---
+
+## 2. Estrutura de Pastas
+
+```
+PROJLOGINSEGURO/
+│
+├── node_modules/       # Dependências instaladas pelo npm
+├── package.json        # Configuração do projeto
+├── package-lock.json   # Registro das versões exatas
+│
+├── server.js           # Servidor principal (Express + Helmet)
+├── serverSimpleNoSqlite.js # Versão inicial sem banco (opcional)
+│
+├── db/
+│   └── database.sqlite # Banco de dados SQLite
+│
+├── models/
+│   └── users.js        # Modelo de usuário (interação com SQLite)
+│
+├── routes/
+│   ├── auth.js         # Rotas de cadastro/login
+│   └── CheckDB.js      # Script utilitário para inspecionar o banco
+│
+└── public/
+    ├── index.html      # Página inicial com formulários
+    ├── style.css       # Estilos (CSS seguro e escalável)
+    └── script.js       # Validação client-side
+```
+
+---
+
+## 3. Instalação
+
+No terminal, dentro da pasta do projeto:
+
+```bash
+npm init -y
+npm install express bcryptjs helmet sqlite3
+```
+
+Isso instala:
+- **express** → framework web  
+- **bcryptjs** → hash de senhas  
+- **helmet** → cabeçalhos de segurança  
+- **sqlite3** → banco de dados SQLite  
+
+---
+
+## 4. Inicialização do Banco
+
+A tabela `users` é criada automaticamente quando o servidor roda pela primeira vez.  
+Se quiser inicializar manualmente, rode:
+
+```bash
+node routes/CheckDB.js
+```
+
+Esse script permite listar usuários e apagar registros.
+
+---
+
+## 5. Executando o Servidor
+
+No terminal:
+```bash
+node server.js
+```
+
+Saída esperada:
+```
+Servidor rodando em http://localhost:3000
+```
+
+---
+
+## 6. Uso da Aplicação
+
+1. Abra o navegador em:
+   ```
+   http://localhost:3000/index.html
+   ```
+2. **Cadastro**: preencha usuário, email e senha → os dados são salvos no banco (`database.sqlite`).  
+3. **Login**: insira usuário e senha → o servidor valida contra o banco.  
+
+---
+
+## 7. Scripts Utilitários
+
+- **Listar usuários cadastrados**:
+  ```bash
+  node routes/CheckDB.js
+  ```
+  Saída:
+  ```
+  Usuários cadastrados:
+  ┌─────┬───────────┬───────────────────────┐
+  │ id  │ username  │ email                 │
+  └─────┴───────────┴───────────────────────┘
+  ```
+
+- **Apagar usuário**: descomente a linha `deleteUser("nome")` em `CheckDB.js` e rode novamente.
+
+---
+
+## 8. Segurança aplicada
+- **Senhas com hash bcrypt** → nunca armazenadas em texto puro.  
+- **Helmet** → adiciona cabeçalhos de segurança (CSP, HSTS, etc.).  
+- **Separação de responsabilidades** → rotas, modelos e servidor organizados.  
+- **Validação no front e back-end** → impede dados inválidos ou maliciosos.  
+
+---
+
+## 9. Próximos passos (evolução futura)
+- Implementar **JWT ou sessões seguras** para autenticação persistente.  
+- Adicionar **CSRF protection** em formulários.  
+- Criar **middlewares de sanitização de inputs**.  
+- Expandir o banco com novas tabelas (ex: `sessions`, `posts`).  

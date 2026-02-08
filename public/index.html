@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Cabeçalhos de segurança relevantes -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Referrer-Policy" content="no-referrer">
+  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+
+  <link rel="stylesheet" href="style.css">
+
+  <title>Cadastro/Login Seguro</title>
+</head>
+<body>
+  <h1>Bem-vindo!</h1>
+  
+  <!-- Formulário de cadastro -->
+
+  <form id="registerForm" method="POST" action="/register">
+    <h2>Cadastro</h2>
+    <label for="username">Usuário:</label>
+    <input type="text" id="username" name="username" required minlength="3" maxlength="20">
+    
+    <label for="email">E-mail:</label>
+    <input type="email" id="email" name="email" required>
+    
+    <label for="password">Senha:</label>
+    <input type="password" id="password" name="password" required minlength="8">
+    
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <!-- Formulário de login -->
+  <form id="loginForm" method="POST" action="/login">
+    <label for="loginUser">Usuário:</label>
+    <input type="text" id="loginUser" name="username" required>
+    
+    <label for="loginPassword">Senha:</label>
+    <input type="password" id="loginPassword" name="password" required>
+    
+    <button type="submit">Entrar</button>
+  </form>
+
+  <script src="script.js"></script>
+</body>
+</html>
